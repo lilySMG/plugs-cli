@@ -1,17 +1,17 @@
 {
-  "name": "vuemodel",
+  "name": "plugs-cli",
   "version": "1.0.0",
-  "description": "",
+  "description": "download plug",
   "main": "index.js",
   "type": "commonjs",
   "bin": {
-    "fe": "./bin/index.js"
+    "fe": "bin/index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "lily-eafan",
   "license": "ISC",
   "dependencies": {
     "commander": "^10.0.1",
@@ -20,5 +20,14 @@
     "inquirer": "^8.0.0",
     "ora": "^6.3.0",
     "path": "^0.12.7"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lilySMG/plugs-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lilySMG/plugs-cli/issues"
+  },
+  "homepage": "https://github.com/lilySMG/plugs-cli#readme"
 }
