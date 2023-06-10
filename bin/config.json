@@ -1,0 +1,11 @@
+{
+    "projectTypeList":[{
+        "name": "vue2移动端",
+        "value": "vue2App",
+        "gitSource":"https://github.com/lilySMG/vue-mobile.git#main"
+    }, {
+        "name": "vue2电脑端",
+        "value": "vue2PC",
+        "gitSource":"https://github.com/lilySMG/vuePC.git#main"
+    }]
+}
