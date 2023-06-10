@@ -5,7 +5,13 @@
 const { Command } = require('commander');
 // self记录用户选择方法
 const changeModelType = require('./modelType');
+// self用户项目类型的交互函数
+const changeProjectType = require('./projectType');
 const program = new Command;
+// 获取文件路径插件
+const path = require('path');
+
+
 
 program
     .name('vueModel')
@@ -16,8 +22,7 @@ program.command('create <name>')
     .description('创建一个新工程')
     .action((name) => {
         console.log('工程名称：', name);
-        // 获取文件路径插件
-        const path = require('path')
+
         // 操作文件插件
         const fs = require('fs-extra')
 
@@ -35,10 +40,9 @@ program.command('create <name>')
                 choicesList: [{
                     name: '覆盖',
                     value: 'overwrite'
-                }, {
-                    name: '合并',
-                    value: 'merge'
-                }, {
+                },
+                // 目前没有合并逻辑{name: '合并',value: 'merge'}
+                {
                     name: '取消',
                     value: 'cancle'
                 }],
@@ -49,58 +53,9 @@ program.command('create <name>')
                             fs.remove(targetPath).then(() => {
                                 fs.mkdirs(targetPath);
                             });
-                            changeModelType({
-                                message: `请选择前端框架模板：`,
-                                choicesList: [{
-                                    name: 'vue2移动端',
-                                    value: 'vue2App'
-                                }, {
-                                    name: 'vue2电脑端',
-                                    value: 'vue2PC'
-                                }],
-                                callBackFun: function (obj) {
-                                    // 下载远程仓库显示动画,高版本不支持commonjs的加载方式
-                                    // const ora  = require('ora');
-                                    // 下载远程仓库显示动画,仓库很老代替换
-                                    const download = require('download-github-repo');
-                                    switch (obj.modelType) {
-                                        case 'vue2App': {
-                                            // vue2移动端项目需要插件
-                                            (async () => {
-                                                const ora = await (await import('ora')).default
-                                                const spinner = ora('远端仓库开始下载...');
-                                                spinner.start();
-                                                // 下载远端仓库
-                                                console.log(targetPath)
-                                                //direct:https://github.com/vuejs/vue-cli/archive/refs/heads/master.zip
-                                                https://github.com/vuejs/vue-cli/archive/refs/tags/v5.0.8.zip
-                                                download('ianstormtaylor/download-github-repo#master', targetPath, (err) => {
-                                                    if (err) {
-                                                        spinner.fail('远端仓库下载失败');
-                                                        console.log(err)
-                                                    } else {
-                                                        spinner.succeed('远端仓库下载成功');
-                                                    }
-                                                });
-                                                console.log('vue2APP端项目需要插件');
-                                            })();
-                                            break;
-                                        }
-                                        case 'vue2PC':
-                                            // vue2PC端项目需要插件
-                                            console.log('vue2PC端项目需要插件')
-                                            break;
-                                        default:
-                                            return;
-                                    }
-                                }
-                            })
+                            changeProjectType(targetPath);
                             break;
                         }
-                        case 'merge':
-                            // merge,目前没写合并逻辑
-                            console.log('合并目录文件，目前没写合并逻辑')
-                            break;
                         default:
                             console.log('你选择了取消')
                             return;
@@ -110,6 +65,7 @@ program.command('create <name>')
         } else {
             // 目录不存在时正常创建
             fs.mkdirs(targetPath);
+            changeProjectType(targetPath);
         }
     })
 

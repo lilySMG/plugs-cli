@@ -13,7 +13,7 @@ const changeModelType = ({
         message: message,
         choices: choicesList
     }]).then((obj) => {
-        callBackFun(obj)
+        callBackFun(obj,choicesList)
     })
 }
 
